@@ -1,0 +1,17 @@
+---
+import { CATEGORY_LABELS } from '../types';
+const categories = Object.entries(CATEGORY_LABELS);
+---
+<div class="flex bg-white/60 rounded-xl p-1 mx-4 mt-4" role="tablist">
+  {categories.map(([value, label], i) => (
+    <button
+      type="button"
+      data-category-tab={value}
+      role="tab"
+      aria-selected={i === 0 ? 'true' : 'false'}
+      class="flex-1 min-h-[44px] rounded-lg text-sm font-semibold text-gray-600 aria-selected:bg-backstage-primary aria-selected:text-white transition-colors"
+    >
+      {label}
+    </button>
+  ))}
+</div>

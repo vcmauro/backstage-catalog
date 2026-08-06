@@ -1,0 +1,18 @@
+---
+import { BRANDS } from '../types';
+---
+<div class="flex gap-2 overflow-x-auto no-scrollbar" role="group" aria-label="Filtrar por marca">
+  {BRANDS.map((brand, i) => (
+    <button
+      type="button"
+      data-brand-filter={brand}
+      aria-pressed={i === 0 ? 'true' : 'false'}
+      class="shrink-0 min-h-[44px] px-5 rounded-xl border-2 font-bold text-sm tracking-wide
+             border-gray-200 text-gray-700 bg-white
+             aria-pressed:border-backstage-primary aria-pressed:bg-backstage-primary/5 aria-pressed:text-backstage-primary
+             transition-colors"
+    >
+      {brand.toUpperCase()}
+    </button>
+  ))}
+</div>

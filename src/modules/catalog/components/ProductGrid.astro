@@ -1,0 +1,26 @@
+---
+import Spinner from '../../shared/components/Spinner.astro';
+---
+<section class="px-4 pt-2">
+  <h2 id="catalog-heading" class="text-lg font-bold text-gray-800 mb-3"></h2>
+  <Spinner id="catalog-spinner" />
+
+  <!-- ------------------------------------------------------------------
+       NÚMERO DE COLUMNAS — prueba las variantes comentadas abajo y quédate
+       con la que se vea mejor en tu celular real:
+
+       Variante A (actual, recomendada para probar primero):
+         grid-cols-3 sm:grid-cols-4
+
+       Variante B (tarjetas medianas, como antes):
+         grid-cols-2 sm:grid-cols-3
+
+       Variante C (muy compactas):
+         grid-cols-3 sm:grid-cols-5
+     ------------------------------------------------------------------ -->
+  <div id="product-grid" class="hidden grid grid-cols-3 sm:grid-cols-4 gap-3"></div>
+
+  <p id="catalog-empty" class="hidden text-center text-gray-500 py-16">
+    No encontramos productos con esos filtros.
+  </p>
+</section>

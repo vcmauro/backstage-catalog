@@ -1,0 +1,43 @@
+---
+import '../styles/global.css';
+import { SITE_CONFIG } from '../core/config/site.config';
+
+interface Props {
+  title: string;
+}
+const { title } = Astro.props;
+---
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{title} | {SITE_CONFIG.name}</title>
+</head>
+<body class="bg-backstage-cream min-h-screen">
+  <header class="bg-backstage-primary text-white sticky top-0 z-10">
+    <div class="flex items-center justify-between px-4 py-3">
+      <div class="flex items-baseline gap-2">
+        <span class="text-xl font-bold">{SITE_CONFIG.name}</span>
+        <span class="text-xs opacity-80 hidden sm:inline">{SITE_CONFIG.tagline}</span>
+      </div>
+      <a
+        href={`https://wa.me/${SITE_CONFIG.whatsappNumber}`}
+        target="_blank"
+        rel="noopener"
+        class="flex items-center gap-2 bg-backstage-whatsapp text-white px-3 py-2 rounded-full text-sm font-medium min-h-[44px]"
+      >
+        WhatsApp
+      </a>
+    </div>
+  </header>
+
+  <main class="pb-16">
+    <slot />
+  </main>
+
+  <footer class="bg-backstage-primary text-white text-center text-xs py-4">
+    Pedidos al WhatsApp: +{SITE_CONFIG.whatsappNumber}
+  </footer>
+</body>
+</html>

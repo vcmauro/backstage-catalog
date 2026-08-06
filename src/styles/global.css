@@ -1,0 +1,7 @@
+@import "tailwindcss";
+
+@theme {
+  --color-backstage-primary: #5b2a5e;
+  --color-backstage-cream: #f7f1e8;
+  --color-backstage-whatsapp: #25D366;
+}

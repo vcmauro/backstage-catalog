@@ -1,0 +1,25 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import CategoryTabs from '../modules/catalog/components/CategoryTabs.astro';
+import BrandFilter from '../modules/catalog/components/BrandFilter.astro';
+import GenderFilter from '../modules/catalog/components/GenderFilter.astro';
+import SearchBar from '../modules/catalog/components/SearchBar.astro';
+import ProductGrid from '../modules/catalog/components/ProductGrid.astro';
+---
+<BaseLayout title="Catálogo">
+  <CategoryTabs />
+
+  <!-- Dos filas independientes: marca arriba, género abajo. Cada una scrollea por su cuenta si no cabe. -->
+  <div class="px-4 pt-4 space-y-2">
+    <BrandFilter />
+    <GenderFilter />
+  </div>
+
+  <SearchBar />
+  <ProductGrid />
+</BaseLayout>
+
+<script>
+  import { initCatalog } from '../modules/catalog/catalogState';
+  initCatalog();
+</script>

@@ -1,0 +1,10 @@
+---
+interface Props {
+  id?: string;
+}
+const { id = 'catalog-spinner' } = Astro.props;
+---
+<div id={id} class="flex flex-col items-center justify-center py-16 text-backstage-primary">
+  <div class="w-8 h-8 border-4 border-backstage-primary/30 border-t-backstage-primary rounded-full animate-spin"></div>
+  <p class="mt-3 text-sm text-gray-500">Cargando catálogo...</p>
+</div>

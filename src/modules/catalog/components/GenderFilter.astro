@@ -1,0 +1,21 @@
+---
+import { GENDER_FILTERS, GENDER_LABELS } from '../types';
+---
+<!-- Fila independiente, con su propio scroll horizontal si no caben todos los chips. -->
+<!-- Botones independientes: cada uno se activa/desactiva por separado (no exclusivos entre sí). -->
+<!-- Ninguno activo por defecto = sin filtro = se muestran todos los productos. -->
+<div class="flex gap-2 overflow-x-auto no-scrollbar" role="group" aria-label="Filtrar por género">
+  {GENDER_FILTERS.map((gender) => (
+    <button
+      type="button"
+      data-gender-filter={gender}
+      aria-pressed="false"
+      class="shrink-0 min-h-[44px] px-4 rounded-xl border-2 font-semibold text-sm
+             border-gray-200 text-gray-700 bg-white
+             aria-pressed:border-backstage-primary aria-pressed:bg-backstage-primary/5 aria-pressed:text-backstage-primary
+             transition-colors"
+    >
+      {GENDER_LABELS[gender]}
+    </button>
+  ))}
+</div>
