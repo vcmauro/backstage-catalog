@@ -6,6 +6,15 @@ interface Props {
   title: string;
 }
 const { title } = Astro.props;
+
+const currentPath = Astro.url.pathname;
+
+const categories = [
+  { label: 'Perfumería', href: '/perfumes' },
+  { label: 'Peluches', href: '/peluches' },
+  { label: 'Regalo Bebés', href: '/regalos-bebes' },
+  { label: 'Juguetes', href: '/juguetes' },
+];
 ---
 <!doctype html>
 <html lang="es">
@@ -16,16 +25,34 @@ const { title } = Astro.props;
 </head>
 <body class="bg-backstage-cream min-h-screen">
   <header class="bg-backstage-primary text-white sticky top-0 z-10">
-    <div class="flex items-center justify-between px-4 py-3">
-      <div class="flex items-baseline gap-2">
-        <span class="text-xl font-bold">{SITE_CONFIG.name}</span>
-        <span class="text-xs opacity-80 hidden sm:inline">{SITE_CONFIG.tagline}</span>
+    <div class="flex items-center gap-2 px-4 py-3">
+      <!-- Logo: se achica en pantallas chicas para dejar espacio a categorías + WhatsApp -->
+      <div class="flex items-baseline gap-2 shrink-0">
+        <span class="text-lg sm:text-xl font-bold">{SITE_CONFIG.name}</span>
+        <span class="text-xs opacity-80 hidden md:inline">{SITE_CONFIG.tagline}</span>
       </div>
+
+      <!-- Categorías: ocupan el espacio central, con scroll horizontal propio si no caben -->
+      <nav class="flex items-center gap-1 overflow-x-auto no-scrollbar flex-1 min-w-0" aria-label="Categorías principales">
+        {categories.map((cat) => (
+          <a
+            href={cat.href}
+            aria-current={currentPath.startsWith(cat.href) ? 'page' : undefined}
+            class="shrink-0 min-h-[44px] flex items-center px-3 rounded-lg text-sm font-semibold
+                   text-white/80 hover:bg-white/10 hover:text-white
+                   aria-[current=page]:bg-white/15 aria-[current=page]:text-white
+                   transition-colors"
+          >
+            {cat.label}
+          </a>
+        ))}
+      </nav>
+
       <a
         href={`https://wa.me/${SITE_CONFIG.whatsappNumber}`}
         target="_blank"
         rel="noopener"
-        class="flex items-center gap-2 bg-backstage-whatsapp text-white px-3 py-2 rounded-full text-sm font-medium min-h-[44px]"
+        class="shrink-0 flex items-center gap-2 bg-backstage-whatsapp hover:brightness-110 text-white px-3 py-2 rounded-full text-sm font-medium min-h-[44px] transition-[filter]"
       >
         WhatsApp
       </a>

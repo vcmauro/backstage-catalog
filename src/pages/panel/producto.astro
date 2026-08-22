@@ -1,0 +1,229 @@
+---
+import '../../styles/global.css';
+import { BRANDS } from '../../modules/catalog/types';
+import { CATEGORY_OPTIONS, GENDER_OPTIONS } from '../../modules/admin/types';
+---
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Producto | Panel</title>
+</head>
+<body class="bg-backstage-cream min-h-screen">
+  <header class="bg-backstage-primary text-white flex items-center gap-3 px-4 py-3">
+    <a href="/panel" class="text-sm underline">← Volver</a>
+    <span class="font-bold" id="form-title">Nuevo producto</span>
+  </header>
+
+  <main class="px-4 py-6 max-w-3xl mx-auto">
+    <form id="product-form" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div class="md:col-span-2">
+        <label class="block text-sm font-medium text-gray-700 mb-1" for="f-name">Nombre *</label>
+        <input id="f-name" type="text" required
+          class="w-full min-h-[44px] px-3 rounded-lg border-2 border-gray-200 focus:outline-none focus:border-backstage-primary" />
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1" for="f-brand">Marca</label>
+        <select id="f-brand"
+          class="w-full min-h-[44px] px-3 rounded-lg border-2 border-gray-200 focus:outline-none focus:border-backstage-primary">
+          <option value="">Sin marca</option>
+          {BRANDS.map((b) => <option value={b}>{b}</option>)}
+        </select>
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1" for="f-category">Categoría *</label>
+        <select id="f-category" required
+          class="w-full min-h-[44px] px-3 rounded-lg border-2 border-gray-200 focus:outline-none focus:border-backstage-primary">
+          {CATEGORY_OPTIONS.map((c) => <option value={c.value}>{c.label}</option>)}
+        </select>
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1" for="f-gender">Género objetivo</label>
+        <select id="f-gender"
+          class="w-full min-h-[44px] px-3 rounded-lg border-2 border-gray-200 focus:outline-none focus:border-backstage-primary">
+          <option value="">Sin definir</option>
+          {GENDER_OPTIONS.map((g) => <option value={g.value}>{g.label}</option>)}
+        </select>
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1" for="f-price">Precio actual (S/)</label>
+        <input id="f-price" type="number" step="0.01" min="0"
+          class="w-full min-h-[44px] px-3 rounded-lg border-2 border-gray-200 focus:outline-none focus:border-backstage-primary" />
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1" for="f-list-price">Precio de lista (S/)</label>
+        <input id="f-list-price" type="number" step="0.01" min="0"
+          class="w-full min-h-[44px] px-3 rounded-lg border-2 border-gray-200 focus:outline-none focus:border-backstage-primary" />
+        <p class="text-xs text-gray-500 mt-1">Vacío si no tiene descuento.</p>
+      </div>
+
+      <div class="md:col-span-2">
+        <label class="block text-sm font-medium text-gray-700 mb-1" for="f-description">Descripción</label>
+        <textarea id="f-description" rows="3"
+          class="w-full px-3 py-2 rounded-lg border-2 border-gray-200 focus:outline-none focus:border-backstage-primary"></textarea>
+      </div>
+
+      <!-- Dropzone de imagen -->
+      <div class="md:col-span-2">
+        <label class="block text-sm font-medium text-gray-700 mb-1">Foto</label>
+        <div id="dropzone"
+          class="relative flex flex-col items-center justify-center gap-2 border-2 border-dashed border-gray-300 rounded-lg p-6 text-center cursor-pointer hover:border-backstage-primary hover:bg-backstage-primary/5 transition-colors">
+          <input id="f-image" type="file" accept="image/*" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
+          <img id="f-image-preview" class="hidden w-24 h-24 object-cover rounded-lg" />
+          <svg id="dropzone-icon" xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 text-gray-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 16.5V9m0 0-3 3m3-3 3 3M6.75 19.5a4.5 4.5 0 0 1-1.41-8.775 5.25 5.25 0 0 1 10.233-2.33 3 3 0 0 1 3.758 3.848A3.752 3.752 0 0 1 18 19.5H6.75Z" />
+          </svg>
+          <p id="dropzone-text" class="text-sm text-gray-500">Arrastra una imagen aquí o haz clic para elegir</p>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-2">
+        <input id="f-available" type="checkbox" checked class="w-5 h-5" />
+        <label for="f-available" class="text-sm font-medium text-gray-700">Disponible en el catálogo</label>
+      </div>
+
+      <div class="flex md:justify-end items-end">
+        <button type="submit" id="submit-btn"
+          class="w-full md:w-auto md:px-10 min-h-[44px] bg-backstage-primary text-white font-semibold rounded-lg">
+          Guardar producto
+        </button>
+      </div>
+
+      <p id="form-error" class="hidden md:col-span-2 text-red-600 text-sm"></p>
+    </form>
+  </main>
+</body>
+</html>
+
+<script>
+  import { requireAuth } from '../../modules/admin/requireAuth';
+  import { createProduct, updateProduct } from '../../modules/admin/services/adminApi';
+  import { compressAndUploadImage } from '../../modules/admin/services/imageService';
+  import { getProductById } from '../../modules/catalog/services/catalogApi';
+  import type { ProductBrand, ProductCategory, ProductGender } from '../../modules/catalog/types';
+
+  await requireAuth();
+
+  const params = new URLSearchParams(window.location.search);
+  const editId = params.get('id');
+
+  const form = document.getElementById('product-form') as HTMLFormElement;
+  const errorEl = document.getElementById('form-error')!;
+  const submitBtn = document.getElementById('submit-btn') as HTMLButtonElement;
+
+  const imageInput = document.getElementById('f-image') as HTMLInputElement;
+  const preview = document.getElementById('f-image-preview') as HTMLImageElement;
+  const dropzoneIcon = document.getElementById('dropzone-icon')!;
+  const dropzoneText = document.getElementById('dropzone-text')!;
+  const dropzone = document.getElementById('dropzone')!;
+
+  let existingImageUrl: string | null = null;
+
+  function showPreview(src: string, label: string) {
+    preview.src = src;
+    preview.classList.remove('hidden');
+    dropzoneIcon.classList.add('hidden');
+    dropzoneText.textContent = label;
+  }
+
+  // Actualiza la vista previa sin importar si la imagen vino de clic o de arrastrar
+  imageInput.addEventListener('change', () => {
+    const file = imageInput.files?.[0];
+    if (file) showPreview(URL.createObjectURL(file), file.name);
+  });
+
+  ['dragover', 'dragenter'].forEach((evt) =>
+    dropzone.addEventListener(evt, (e) => {
+      e.preventDefault();
+      dropzone.classList.add('border-backstage-primary', 'bg-backstage-primary/5');
+    })
+  );
+  ['dragleave', 'drop'].forEach((evt) =>
+    dropzone.addEventListener(evt, (e) => {
+      e.preventDefault();
+      dropzone.classList.remove('border-backstage-primary', 'bg-backstage-primary/5');
+    })
+  );
+  dropzone.addEventListener('drop', (e: DragEvent) => {
+    const file = e.dataTransfer?.files?.[0];
+    if (!file) return;
+    const dt = new DataTransfer();
+    dt.items.add(file);
+    imageInput.files = dt.files;
+    imageInput.dispatchEvent(new Event('change'));
+  });
+
+  // Modo edición: precargar datos del producto
+  if (editId) {
+    document.getElementById('form-title')!.textContent = 'Editar producto';
+
+    const product = await getProductById(editId);
+    if (product) {
+      (document.getElementById('f-name') as HTMLInputElement).value = product.name;
+      (document.getElementById('f-brand') as HTMLSelectElement).value = product.brand ?? '';
+      (document.getElementById('f-category') as HTMLSelectElement).value = product.category;
+      (document.getElementById('f-gender') as HTMLSelectElement).value = product.gender ?? '';
+      (document.getElementById('f-description') as HTMLTextAreaElement).value = product.description ?? '';
+      (document.getElementById('f-price') as HTMLInputElement).value = product.price?.toString() ?? '';
+      (document.getElementById('f-list-price') as HTMLInputElement).value = product.list_price?.toString() ?? '';
+      (document.getElementById('f-available') as HTMLInputElement).checked = product.is_available;
+
+      existingImageUrl = product.image_url;
+      if (product.image_url) {
+        showPreview(product.image_url, 'Imagen actual (arrastra otra para reemplazarla)');
+      }
+    }
+  }
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    errorEl.classList.add('hidden');
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Guardando...';
+
+    try {
+      const imageFile = imageInput.files?.[0];
+      let imageUrl = existingImageUrl;
+      if (imageFile) {
+        imageUrl = await compressAndUploadImage(imageFile);
+      }
+
+      const priceValue = (document.getElementById('f-price') as HTMLInputElement).value;
+      const listPriceValue = (document.getElementById('f-list-price') as HTMLInputElement).value;
+      const brandValue = (document.getElementById('f-brand') as HTMLSelectElement).value;
+      const genderValue = (document.getElementById('f-gender') as HTMLSelectElement).value;
+
+      const input = {
+        name: (document.getElementById('f-name') as HTMLInputElement).value.trim(),
+        brand: (brandValue === '' ? null : brandValue) as ProductBrand | null,
+        category: (document.getElementById('f-category') as HTMLSelectElement).value as ProductCategory,
+        gender: (genderValue === '' ? null : genderValue) as ProductGender,
+        description: (document.getElementById('f-description') as HTMLTextAreaElement).value.trim() || null,
+        price: priceValue === '' ? null : parseFloat(priceValue),
+        list_price: listPriceValue === '' ? null : parseFloat(listPriceValue),
+        image_url: imageUrl,
+        is_available: (document.getElementById('f-available') as HTMLInputElement).checked,
+      };
+
+      if (editId) {
+        await updateProduct(editId, input);
+      } else {
+        await createProduct(input);
+      }
+
+      window.location.href = '/panel';
+    } catch (err) {
+      errorEl.textContent = err instanceof Error ? err.message : 'Ocurrió un error al guardar.';
+      errorEl.classList.remove('hidden');
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Guardar producto';
+    }
+  });
+</script>

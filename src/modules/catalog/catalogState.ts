@@ -31,11 +31,11 @@ export async function initCatalog() {
   function matchesGender(product: Product): boolean {
     if (filters.genders.size === 0) return true; // sin filtro activo: pasan todos
 
-    if (product.gender === null) return filters.genders.has('Unisex');
     if (product.gender === 'Damas') return filters.genders.has('Damas');
     if (product.gender === 'Caballeros') return filters.genders.has('Caballeros');
     if (product.gender === 'Niños') return filters.genders.has('Niños');
 
+    // gender null (sin definir) no coincide con ningún filtro activo, ya que no hay botón "Unisex"
     return false;
   }
 
@@ -91,7 +91,6 @@ export async function initCatalog() {
     });
   });
 
-  // Género: selección MÚLTIPLE e independiente (toggle, no exclusivo entre botones)
   genderButtons.forEach((btn) => {
     btn.addEventListener('click', () => {
       const value = btn.dataset.genderFilter as GenderFilterValue;
