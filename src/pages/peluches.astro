@@ -1,10 +1,14 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import SearchBar from '../modules/catalog/components/SearchBar.astro';
+import ProductGrid from '../modules/catalog/components/ProductGrid.astro';
 ---
 <BaseLayout title="Peluches">
-  <div class="flex flex-col items-center justify-center py-24 px-4 text-center">
-    <h1 class="text-2xl font-bold text-gray-800">Peluches</h1>
-    <p class="text-gray-500 mt-2">Esta sección estará disponible próximamente.</p>
-    <p class="text-gray-500 mt-1 text-sm">Mientras tanto, consúltanos por WhatsApp.</p>
-  </div>
+  <SearchBar />
+  <ProductGrid />
 </BaseLayout>
+
+<script>
+  import { initSimpleCategoryList } from '../modules/catalog/simpleCategoryState';
+  initSimpleCategoryList('Peluches');
+</script>

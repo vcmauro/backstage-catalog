@@ -11,15 +11,18 @@ import { BRANDS } from '../../modules/catalog/types';
   <meta name="robots" content="noindex, nofollow" />
   <title>Panel</title>
 </head>
-<body class="bg-backstage-cream min-h-screen">
+<!-- "hidden" por defecto: nada se muestra hasta que requireAuth() confirme la sesión.
+     Si no hay sesión, la página redirige a /panel/login sin llegar a mostrarse. -->
+<body class="hidden bg-backstage-cream min-h-screen">
   <header class="bg-backstage-primary text-white px-4 py-3 flex items-center justify-between">
     <span class="font-bold">Panel de administración</span>
-    <button id="logout-btn" class="text-sm underline">Cerrar sesión</button>
+    <div class="flex items-center gap-4">
+      <a href="/perfumes" class="text-sm underline">Ver tienda</a>
+      <button id="logout-btn" class="text-sm underline">Cerrar sesión</button>
+    </div>
   </header>
 
-  <main id="admin-content" class="hidden px-4 py-4 max-w-6xl mx-auto">
-    <!-- Fila única en pantallas anchas: buscador + filtros + botón (a la derecha).
-         En celular se apila verticalmente. -->
+  <main class="px-4 py-4 max-w-6xl mx-auto">
     <div class="flex flex-col sm:flex-row sm:items-center gap-2 mb-4">
       <input id="admin-search" type="search" placeholder="Buscar producto..."
         class="min-h-[44px] px-3 rounded-lg border-2 border-gray-200 focus:outline-none focus:border-backstage-primary sm:flex-1" />
@@ -29,7 +32,6 @@ import { BRANDS } from '../../modules/catalog/types';
         {CATEGORY_OPTIONS.map((c) => <option value={c.value}>{c.label}</option>)}
       </select>
 
-      <!-- Solo visible cuando la categoría elegida es "Perfumes" -->
       <select id="admin-brand-filter" class="hidden min-h-[44px] px-2 rounded-lg border-2 border-gray-200 text-sm sm:w-40 shrink-0">
         <option value="Todas">Todas las marcas</option>
         {BRANDS.map((b) => <option value={b}>{b}</option>)}
@@ -52,7 +54,6 @@ import { BRANDS } from '../../modules/catalog/types';
       <p class="mt-3 text-sm text-gray-500">Cargando productos...</p>
     </div>
 
-    <!-- Grid: 1 columna en celular, más columnas en pantallas anchas -->
     <div id="admin-product-list" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3"></div>
 
     <p id="admin-list-empty" class="hidden text-center text-gray-500 py-16">
@@ -69,7 +70,8 @@ import { BRANDS } from '../../modules/catalog/types';
 
   (async () => {
     await requireAuth();
-    document.getElementById('admin-content')?.classList.remove('hidden');
+    // Solo llegamos aquí si hay sesión válida. Recién ahora se muestra la página.
+    document.body.classList.remove('hidden');
     initAdminList();
   })();
 

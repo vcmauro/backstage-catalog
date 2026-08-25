@@ -1,5 +1,6 @@
 export type ProductBrand = 'Yanbal' | 'Natura' | 'Ésika' | 'Avon';
 
+// 'Otros' se deja en la base de datos por si acaso, pero ya no se usa en ningún lado del frontend.
 export type ProductCategory =
   | 'Perfumes'
   | 'Otros'
@@ -8,8 +9,6 @@ export type ProductCategory =
   | 'RegaloBebes'
   | 'Juguetes';
 
-// Género tal como se guarda en la base de datos.
-// null = sin género definido. Ya no tiene botón de filtro propio (se retiró "Unisex").
 export type ProductGender = 'Damas' | 'Caballeros' | 'Niños' | null;
 
 export type GenderFilterValue = 'Damas' | 'Caballeros' | 'Niños';
@@ -28,11 +27,10 @@ export interface Product {
   created_at: string;
 }
 
-// Etiquetas visibles del catálogo público de Perfumería (subcategorías dentro de /perfumes).
-// El resto de categorías (Peluches, RegaloBebes, Juguetes) se etiquetan cuando armemos esas secciones.
-export const CATEGORY_LABELS: Record<'Perfumes' | 'Otros', string> = {
+// Pestañas dentro de /perfumes: Perfumes y Cosméticos.
+export const CATEGORY_LABELS: Record<'Perfumes' | 'Cosmeticos', string> = {
   Perfumes: 'Perfumería',
-  Otros: 'Cosméticos',
+  Cosmeticos: 'Cosméticos',
 };
 
 export const BRANDS: ProductBrand[] = ['Yanbal', 'Ésika', 'Avon', 'Natura'];

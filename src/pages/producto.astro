@@ -15,7 +15,12 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     <div class="md:w-1/2 mt-4 md:mt-0">
       <p id="pd-brand" class="text-sm text-gray-500"></p>
       <h1 id="pd-name" class="text-2xl font-bold text-gray-800"></h1>
-      <p id="pd-price" class="text-xl font-bold text-backstage-primary mt-2"></p>
+
+      <div class="flex items-baseline gap-2 mt-2">
+        <span id="pd-price" class="text-xl font-bold text-backstage-primary"></span>
+        <span id="pd-list-price" class="hidden line-through text-gray-400 text-sm"></span>
+      </div>
+
       <p id="pd-description" class="hidden text-sm text-gray-600 mt-4 leading-relaxed"></p>
       <div id="pd-whatsapp" class="mt-6"></div>
     </div>
@@ -54,9 +59,19 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
     (document.getElementById('pd-image') as HTMLImageElement).src = product.image_url ?? '/placeholder-product.webp';
     (document.getElementById('pd-image') as HTMLImageElement).alt = product.name;
-    document.getElementById('pd-brand')!.textContent = product.brand;
+    document.getElementById('pd-brand')!.textContent = product.brand ?? '';
     document.getElementById('pd-name')!.textContent = product.name;
-    document.getElementById('pd-price')!.textContent = product.price != null ? `S/ ${product.price.toFixed(2)}` : 'Consultar precio';
+
+    const priceEl = document.getElementById('pd-price')!;
+    const listPriceEl = document.getElementById('pd-list-price')!;
+
+    priceEl.textContent = product.price != null ? `S/ ${product.price.toFixed(2)}` : 'Consultar precio';
+
+    const hasDiscount = product.list_price != null && product.price != null && product.list_price > product.price;
+    if (hasDiscount) {
+      listPriceEl.textContent = `S/ ${product.list_price!.toFixed(2)}`;
+      listPriceEl.classList.remove('hidden');
+    }
 
     const descriptionEl = document.getElementById('pd-description')!;
     if (product.description) {
