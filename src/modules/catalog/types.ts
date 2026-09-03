@@ -1,13 +1,14 @@
-export type ProductBrand = 'Yanbal' | 'Natura' | 'Ésika' | 'Avon';
+export type ProductBrand = 'Yanbal' | 'Natura' | 'Ésika' | 'Avon' | 'Cyzone' | 'LBEL';
 
-// 'Otros' se deja en la base de datos por si acaso, pero ya no se usa en ningún lado del frontend.
 export type ProductCategory =
   | 'Perfumes'
-  | 'Otros'
   | 'Cosmeticos'
   | 'Peluches'
   | 'RegaloBebes'
-  | 'Juguetes';
+  | 'Juguetes'
+  | 'CarterasMochilas'
+  | 'BijouterieJoyas'
+  | 'Tecnologia';
 
 export type ProductGender = 'Damas' | 'Caballeros' | 'Niños' | null;
 
@@ -33,7 +34,19 @@ export const CATEGORY_LABELS: Record<'Perfumes' | 'Cosmeticos', string> = {
   Cosmeticos: 'Cosméticos',
 };
 
-export const BRANDS: ProductBrand[] = ['Yanbal', 'Ésika', 'Avon', 'Natura'];
+// Etiquetas legibles de TODAS las categorías (header, mensaje de WhatsApp, etc.)
+export const CATEGORY_DISPLAY_LABELS: Record<ProductCategory, string> = {
+  Perfumes: 'Perfumería',
+  Cosmeticos: 'Cosméticos',
+  Peluches: 'Peluches',
+  RegaloBebes: 'Regalo Bebés',
+  Juguetes: 'Juguetes',
+  CarterasMochilas: 'Carteras y Mochilas',
+  BijouterieJoyas: 'Bijouterie y Joyas',
+  Tecnologia: 'Tecnología',
+};
+
+export const BRANDS: ProductBrand[] = ['Yanbal', 'Ésika', 'Avon', 'Natura', 'Cyzone', 'LBEL'];
 
 export const GENDER_FILTERS: GenderFilterValue[] = ['Damas', 'Caballeros', 'Niños'];
 

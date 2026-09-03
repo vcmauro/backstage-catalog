@@ -1,7 +1,5 @@
 import type { ProductBrand, ProductCategory, ProductGender } from '../catalog/types';
 
-// Forma de los datos que vienen del formulario. No incluye id/created_at:
-// esos los maneja la base de datos.
 export interface ProductInput {
   name: string;
   brand: ProductBrand | null;
@@ -15,12 +13,14 @@ export interface ProductInput {
 }
 
 export const CATEGORY_OPTIONS: { value: ProductCategory; label: string }[] = [
-  { value: 'Perfumes', label: 'Perfumería - Perfumes' },
-  { value: 'Otros', label: 'Perfumería - Otros' },
+  { value: 'Perfumes', label: 'Perfumes' },
   { value: 'Cosmeticos', label: 'Cosméticos' },
   { value: 'Peluches', label: 'Peluches' },
   { value: 'RegaloBebes', label: 'Regalo Bebés' },
   { value: 'Juguetes', label: 'Juguetes' },
+  { value: 'CarterasMochilas', label: 'Carteras y Mochilas' },
+  { value: 'BijouterieJoyas', label: 'Bijouterie y Joyas' },
+  { value: 'Tecnologia', label: 'Tecnología' },
 ];
 
 export const GENDER_OPTIONS: { value: NonNullable<ProductGender>; label: string }[] = [

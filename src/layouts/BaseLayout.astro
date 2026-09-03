@@ -14,6 +14,9 @@ const categories = [
   { label: 'Peluches', href: '/peluches' },
   { label: 'Regalo Bebés', href: '/regalos-bebes' },
   { label: 'Juguetes', href: '/juguetes' },
+  { label: 'Carteras y Mochilas', href: '/carteras-mochilas' },
+  { label: 'Bijouterie y Joyas', href: '/bijouterie-joyas' },
+  { label: 'Tecnología', href: '/tecnologia' },
 ];
 ---
 <!doctype html>
@@ -26,13 +29,11 @@ const categories = [
 <body class="bg-backstage-cream min-h-screen">
   <header class="bg-backstage-primary text-white sticky top-0 z-10">
     <div class="flex items-center gap-2 px-4 py-3">
-      <!-- Logo: se achica en pantallas chicas para dejar espacio a categorías + WhatsApp -->
       <div class="flex items-baseline gap-2 shrink-0">
         <span class="text-lg sm:text-xl font-bold">{SITE_CONFIG.name}</span>
         <span class="text-xs opacity-80 hidden md:inline">{SITE_CONFIG.tagline}</span>
       </div>
 
-      <!-- Categorías: ocupan el espacio central, con scroll horizontal propio si no caben -->
       <nav class="flex items-center gap-1 overflow-x-auto no-scrollbar flex-1 min-w-0" aria-label="Categorías principales">
         {categories.map((cat) => (
           <a

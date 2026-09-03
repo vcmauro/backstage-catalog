@@ -1,0 +1,14 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SearchBar from '../modules/catalog/components/SearchBar.astro';
+import ProductGrid from '../modules/catalog/components/ProductGrid.astro';
+---
+<BaseLayout title="Bijouterie y Joyas">
+  <SearchBar />
+  <ProductGrid />
+</BaseLayout>
+
+<script>
+  import { initSimpleCategoryList } from '../modules/catalog/simpleCategoryState';
+  initSimpleCategoryList('BijouterieJoyas');
+</script>

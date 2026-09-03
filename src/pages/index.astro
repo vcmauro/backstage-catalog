@@ -1,10 +1,49 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { SITE_CONFIG } from '../core/config/site.config';
+
+// Mismo set de categorías que el header (BaseLayout.astro).
+// Si agregas/quitas una categoría allá, replica el cambio aquí también.
+const categories = [
+  { label: 'Perfumería', href: '/perfumes', emoji: '🌸' },
+  { label: 'Peluches', href: '/peluches', emoji: '🧸' },
+  { label: 'Regalo Bebés', href: '/regalos-bebes', emoji: '🎁' },
+  { label: 'Juguetes', href: '/juguetes', emoji: '🧩' },
+  { label: 'Carteras y Mochilas', href: '/carteras-mochilas', emoji: '👜' },
+  { label: 'Bijouterie y Joyas', href: '/bijouterie-joyas', emoji: '💍' },
+  { label: 'Tecnología', href: '/tecnologia', emoji: '📱' },
+];
 ---
 <BaseLayout title="Inicio">
-  <div class="flex flex-col items-center justify-center py-24 px-4 text-center">
-    <h1 class="text-2xl font-bold text-gray-800">Inicio</h1>
-    <p class="text-gray-500 mt-2">Esta sección estará disponible próximamente.</p>
-    <p class="text-gray-500 mt-1 text-sm">Mientras tanto, consúltanos por WhatsApp.</p>
-  </div>
+  <!-- Hero: simple, texto + CTA. Reemplazar el texto/botón cuando se defina algo más elaborado. -->
+  <section class="bg-backstage-primary text-white px-4 py-10 text-center">
+    <h1 class="text-2xl sm:text-3xl font-bold">{SITE_CONFIG.name}</h1>
+    <p class="mt-2 text-sm sm:text-base opacity-90 max-w-md mx-auto">
+      Perfumería, belleza y más, con entrega en Lima. Elige una categoría y consulta directo por WhatsApp.
+    </p>
+    <a
+      href={`https://wa.me/${SITE_CONFIG.whatsappNumber}`}
+      target="_blank"
+      rel="noopener"
+      class="inline-flex items-center justify-center gap-2 bg-backstage-whatsapp text-white font-semibold px-6 py-3 rounded-full mt-6 min-h-[44px]"
+    >
+      Escríbenos por WhatsApp
+    </a>
+  </section>
+
+  <!-- Categorías: tarjetas con emoji como ícono provisional (fácil de cambiar por foto real). -->
+  <section class="px-4 py-8 max-w-4xl mx-auto">
+    <h2 class="text-lg font-bold text-gray-800 mb-4 text-center">Nuestras categorías</h2>
+    <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
+      {categories.map((cat) => (
+        <a
+          href={cat.href}
+          class="flex flex-col items-center justify-center gap-2 bg-white rounded-xl shadow-sm p-5 min-h-[44px] text-center hover:shadow-md transition-shadow"
+        >
+          <span class="text-3xl">{cat.emoji}</span>
+          <span class="text-sm font-semibold text-gray-700">{cat.label}</span>
+        </a>
+      ))}
+    </div>
+  </section>
 </BaseLayout>
